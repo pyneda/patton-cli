@@ -12,7 +12,6 @@ log = logging.getLogger("patton-cli")
 
 def _check_banners(banners: Union[Set[str], List[str]],
                    patton_config: PattonRunningConfig):
-
     results = check_banners_from_api(banners,
                                      patton_config=patton_config)
 

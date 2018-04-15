@@ -53,10 +53,8 @@ class PattonClient:
         else:
             input_banners = get_data_from_sources(patton_config,
                                                   dependency_or_banner="banner")
-            print('Input banners: {}'.format(input_banners))
             # Select the banner type parser and get dependencies
-            parsed_banners = parse_banners(input_banners, patton_config)
-            print('Parsed banners: {}'.format(parsed_banners))
+            parsed_banners = list(parse_banners(input_banners, patton_config)) # set to list
             return await self._check_banners_in_patton(parsed_banners, patton_config)
 
     async def check_dependencies(self, _input: (str, List), source_type: str='auto'):
@@ -90,7 +88,7 @@ class PattonClient:
         if not patton_url.startswith("http"):
             patton_url = f"http://{patton_url}"
 
-        logging.info('dep_list in do_apy_query: {}'.format(dep_list))
+        logging.warning('dep_list in do_apy_query: {} to {}'.format(dep_list, patton_url))
         async with self._session.post(
                 patton_url,
                 data=json.dumps(dep_list),
@@ -99,7 +97,6 @@ class PattonClient:
                 server_response = await resp.json()
             else:
                 server_response = await resp.text()
-
                 raise PCServerResponseException(
                     f"Server error: {server_response}")
 

@@ -21,7 +21,9 @@ def parse_banners(banners: List[List[str]],
     for source_type, source_content in banners:
         if source_type == "file":
             result.update(nmap_file(source_content))
-
+        elif source_type == "cli_input":  # Not sure if should be added
+            for banner in source_content:
+                result.add(banner)
     return result
 
 

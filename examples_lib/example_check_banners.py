@@ -5,7 +5,7 @@ queries = [['Apache httpd extrainfo: SSL-only mode'], ['SSH-2.0-OpenSSH_7.4p1 De
 
 
 async def run():
-    client = PattonClient()
+    client = PattonClient(patton_host='127.0.0.1:8000')
     tasks = [asyncio.ensure_future(client.check_banners(q))
              for q in queries
              ]

@@ -1,11 +1,10 @@
 from patton_client.client import PattonClient
 import asyncio
 
-queries = ['django:2.0.1', 'django:1.9 python:3.4 openssh:7.3.', ['celery:1.0', 'python:3.6'], 'python:2.7']
-
+queries = ['django:2.0.1', 'django:1.9 python:3.4 openssh:7.3.', ['openssh:7.2', 'python:3.6'], 'python:2.7']
 
 async def run():
-    client = PattonClient()
+    client = PattonClient(patton_host='127.0.0.1:8000')
     tasks = [asyncio.ensure_future(client.check_dependencies(q))
              for q in queries
              ]
